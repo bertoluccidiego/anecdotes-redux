@@ -1,9 +1,18 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Anecdote from './Anecdote';
 import Filter from './Filter';
 
+import { initializeAnecdotes } from '../reducers/anecdoteReducer';
+
 function Anecdotes() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(initializeAnecdotes());
+  }, [dispatch]);
+
   function anecdotesSelector(state) {
     return state.anecdotes;
   }
