@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 
 function Notification() {
   function selector(state) {
-    return state.notifications;
+    return state.notifications.text;
   }
   const notification = useSelector(selector);
 
