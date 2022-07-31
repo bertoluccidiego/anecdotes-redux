@@ -1,6 +1,10 @@
 import { useDispatch } from 'react-redux';
 
 import { createAnecdote } from '../reducers/anecdoteReducer';
+import {
+  setNotification,
+  resetNotification,
+} from '../reducers/notificationReducer';
 
 function NewAnecdote() {
   const dispatch = useDispatch();
@@ -12,6 +16,8 @@ function NewAnecdote() {
     /* eslint-disable-next-line */
     event.target.anecdote.value = '';
     dispatch(createAnecdote(anecdote));
+    dispatch(setNotification(`Added '${anecdote}'`));
+    setTimeout(() => dispatch(resetNotification()), 5000);
   }
 
   return (

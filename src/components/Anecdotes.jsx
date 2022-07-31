@@ -1,18 +1,32 @@
 import { useSelector } from 'react-redux';
 
 import Anecdote from './Anecdote';
+import Filter from './Filter';
 
 function Anecdotes() {
-  function selector(state) {
-    return state;
+  function anecdotesSelector(state) {
+    return state.anecdotes;
   }
-  const anecdotes = useSelector(selector);
 
-  const sortedAnecdotes = anecdotes.sort((a, b) => b.votes - a.votes);
+  function filterSelector(state) {
+    return state.filter;
+  }
+
+  const anecdotes = useSelector(anecdotesSelector);
+  const filter = useSelector(filterSelector);
+
+  const filteredAnecdotes = anecdotes.filter((a) =>
+    a.content.toLowerCase().includes(filter.toLowerCase())
+  );
+  const sortedFilteredAnecdotes = filteredAnecdotes.sort(
+    (a, b) => b.votes - a.votes
+  );
 
   return (
     <div>
-      {sortedAnecdotes.map((anecdote) => (
+      <h1>Anecdotes</h1>
+      <Filter />
+      {sortedFilteredAnecdotes.map((anecdote) => (
         <Anecdote key={anecdote.id} anecdote={anecdote} />
       ))}
     </div>
